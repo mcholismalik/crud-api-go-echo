@@ -1,0 +1,121 @@
+version: "3.9"
+services:
+  # api
+  codeid-api:
+    container_name: codeid-api
+    image: codeid-api:latest
+    ports:
+      - "3030:3030"
+    depends_on: 
+      - codeid-postgres
+      - codeid-redis
+      - codeid-es-01
+    networks:
+      - codeid-net
+    
+  # postgres
+  codeid-postgres:
+    container_name: codeid-postgres
+    image: postgres:12-alpine 
+    environment: 
+      - POSTGRES_USER=codeid_user
+      - POSTGRES_PASSWORD=f72d8509-c70a-485a-a471-23f899b988ab
+      - POSTGRES_DB=codeid_db
+    volumes: 
+      - codeid-postgres:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    networks:
+      - codeid-net
+  
+  # redis
+  codeid-redis:
+    image: "redis:alpine"
+    container_name: codeid-redis
+    command: redis-server --requirepass 21541e54-d91c-4c4b-ab94-26fa5a46a654
+    environment:
+      - REDIS_REPLICATION_MODE=master
+    volumes:
+      - codeid-redis:/var/lib/redis
+      - codeid-redis-conf:/usr/local/etc/redis/redis.conf
+    ports:
+      - "6379:6379"
+    restart: always
+    networks:
+      - codeid-net
+
+  # elasticsearch
+  codeid-es-01:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.3
+    container_name: codeid-es-01
+    environment:
+      - node.name=codeid-es-01
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=codeid-es-02,codeid-es-03
+      - cluster.initial_master_nodes=codeid-es-01,codeid-es-02,codeid-es-03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - codeid-es-01:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - codeid-net
+  codeid-es-02:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.3
+    container_name: codeid-es-02
+    environment:
+      - node.name=codeid-es-02
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=codeid-es-01,codeid-es-03
+      - cluster.initial_master_nodes=codeid-es-01,codeid-es-02,codeid-es-03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - codeid-es-02:/usr/share/elasticsearch/data
+    networks:
+      - codeid-net
+  codeid-es-03:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.3
+    container_name: codeid-es-03
+    environment:
+      - node.name=codeid-es-03
+      - cluster.name=es-docker-cluster
+      - discovery.seed_hosts=codeid-es-01,codeid-es-02
+      - cluster.initial_master_nodes=codeid-es-01,codeid-es-02,codeid-es-03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - codeid-es-03:/usr/share/elasticsearch/data
+    networks:
+      - codeid-net
+
+volumes:
+  codeid-postgres:
+    external: true
+  codeid-redis:
+    external: true
+  codeid-redis-conf:
+    external: true
+  codeid-es-01:
+    external: true
+  codeid-es-02:
+    external: true
+  codeid-es-03:
+    external: true
+  
+networks:
+  codeid-net:
+    name: codeid-net

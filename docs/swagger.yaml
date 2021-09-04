@@ -1,0 +1,682 @@
+basePath: /
+definitions:
+  abstraction.PaginationInfo:
+    properties:
+      count:
+        type: integer
+      more_records:
+        type: boolean
+      page:
+        type: integer
+      page_size:
+        type: integer
+      sort:
+        type: string
+      sort_by:
+        type: string
+    type: object
+  dto.AuthLoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dto.AuthLoginResponse:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      token:
+        type: string
+    required:
+    - email
+    - is_active
+    - name
+    - password
+    - phone
+    type: object
+  dto.AuthLoginResponseDoc:
+    properties:
+      body:
+        properties:
+          data:
+            $ref: '#/definitions/dto.AuthLoginResponse'
+          meta:
+            $ref: '#/definitions/response.Meta'
+        type: object
+    type: object
+  dto.AuthRegisterRequest:
+    properties:
+      email:
+        type: string
+      is_active:
+        type: boolean
+      name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+    required:
+    - email
+    - is_active
+    - name
+    - password
+    - phone
+    type: object
+  dto.AuthRegisterResponse:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      is_active:
+        type: boolean
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+    required:
+    - email
+    - is_active
+    - name
+    - password
+    - phone
+    type: object
+  dto.AuthRegisterResponseDoc:
+    properties:
+      body:
+        properties:
+          data:
+            $ref: '#/definitions/dto.AuthRegisterResponse'
+          meta:
+            $ref: '#/definitions/response.Meta'
+        type: object
+    type: object
+  dto.SampleCreateRequest:
+    properties:
+      key:
+        type: string
+      value:
+        type: string
+    required:
+    - key
+    - value
+    type: object
+  dto.SampleCreateResponse:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      id:
+        type: integer
+      key:
+        type: string
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      sample_childs:
+        description: relations
+        items:
+          $ref: '#/definitions/model.SampleChildEntityModel'
+        type: array
+      value:
+        type: string
+    required:
+    - key
+    - value
+    type: object
+  dto.SampleCreateResponseDoc:
+    properties:
+      body:
+        properties:
+          data:
+            $ref: '#/definitions/dto.SampleCreateResponse'
+          meta:
+            $ref: '#/definitions/response.Meta'
+        type: object
+    type: object
+  dto.SampleDeleteResponse:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      id:
+        type: integer
+      key:
+        type: string
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      sample_childs:
+        description: relations
+        items:
+          $ref: '#/definitions/model.SampleChildEntityModel'
+        type: array
+      value:
+        type: string
+    required:
+    - key
+    - value
+    type: object
+  dto.SampleDeleteResponseDoc:
+    properties:
+      body:
+        properties:
+          data:
+            $ref: '#/definitions/dto.SampleDeleteResponse'
+          meta:
+            $ref: '#/definitions/response.Meta'
+        type: object
+    type: object
+  dto.SampleGetByIDResponse:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      id:
+        type: integer
+      key:
+        type: string
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      sample_childs:
+        description: relations
+        items:
+          $ref: '#/definitions/model.SampleChildEntityModel'
+        type: array
+      value:
+        type: string
+    required:
+    - key
+    - value
+    type: object
+  dto.SampleGetByIDResponseDoc:
+    properties:
+      body:
+        properties:
+          data:
+            $ref: '#/definitions/dto.SampleGetByIDResponse'
+          meta:
+            $ref: '#/definitions/response.Meta'
+        type: object
+    type: object
+  dto.SampleGetResponseDoc:
+    properties:
+      body:
+        properties:
+          data:
+            items:
+              $ref: '#/definitions/model.SampleEntityModel'
+            type: array
+          meta:
+            $ref: '#/definitions/response.Meta'
+        type: object
+    type: object
+  dto.SampleUpdateRequest:
+    properties:
+      id:
+        type: integer
+      key:
+        type: string
+      value:
+        type: string
+    required:
+    - id
+    - key
+    - value
+    type: object
+  dto.SampleUpdateResponse:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      id:
+        type: integer
+      key:
+        type: string
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      sample_childs:
+        description: relations
+        items:
+          $ref: '#/definitions/model.SampleChildEntityModel'
+        type: array
+      value:
+        type: string
+    required:
+    - key
+    - value
+    type: object
+  dto.SampleUpdateResponseDoc:
+    properties:
+      body:
+        properties:
+          data:
+            $ref: '#/definitions/dto.SampleUpdateResponse'
+          meta:
+            $ref: '#/definitions/response.Meta'
+        type: object
+    type: object
+  model.SampleChildEntityModel:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      id:
+        type: integer
+      key:
+        type: string
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      sample_grand_childs:
+        items:
+          $ref: '#/definitions/model.SampleGrandChildEntityModel'
+        type: array
+      sample_id:
+        description: relations
+        type: integer
+      value:
+        type: string
+    required:
+    - key
+    - value
+    type: object
+  model.SampleEntityModel:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      id:
+        type: integer
+      key:
+        type: string
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      sample_childs:
+        description: relations
+        items:
+          $ref: '#/definitions/model.SampleChildEntityModel'
+        type: array
+      value:
+        type: string
+    required:
+    - key
+    - value
+    type: object
+  model.SampleGrandChildEntityModel:
+    properties:
+      created_at:
+        type: string
+      created_by:
+        type: string
+      id:
+        type: integer
+      key:
+        type: string
+      modified_at:
+        type: string
+      modified_by:
+        type: string
+      sample_child_id:
+        description: relations
+        type: integer
+      value:
+        type: string
+    required:
+    - key
+    - value
+    type: object
+  response.Meta:
+    properties:
+      info:
+        $ref: '#/definitions/abstraction.PaginationInfo'
+      message:
+        default: "true"
+        type: string
+      success:
+        default: true
+        type: boolean
+    type: object
+  response.errorResponse:
+    properties:
+      error:
+        type: string
+      meta:
+        $ref: '#/definitions/response.Meta'
+    type: object
+host: localhost:3030
+info:
+  contact: {}
+  description: This is a doc for codeid-boiler.
+  title: codeid-boiler
+  version: 0.0.1
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Login user
+      parameters:
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AuthLoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.AuthLoginResponseDoc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      summary: Login user
+      tags:
+      - auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Register user
+      parameters:
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.AuthRegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.AuthRegisterResponseDoc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      security:
+      - BearerAuth: []
+      summary: Register user
+      tags:
+      - auth
+  /samples:
+    get:
+      consumes:
+      - application/json
+      description: Get samples
+      parameters:
+      - in: query
+        name: created_at
+        type: string
+      - in: query
+        name: created_by
+        type: string
+      - in: query
+        name: key
+        type: string
+      - in: query
+        name: modified_at
+        type: string
+      - in: query
+        name: modified_by
+        type: string
+      - in: query
+        name: page
+        type: integer
+      - in: query
+        name: page_size
+        type: integer
+      - in: query
+        name: sort
+        type: string
+      - in: query
+        name: sort_by
+        type: string
+      - in: query
+        name: value
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SampleGetResponseDoc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get samples
+      tags:
+      - samples
+    post:
+      consumes:
+      - application/json
+      description: Create samples
+      parameters:
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SampleCreateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SampleCreateResponseDoc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      security:
+      - BearerAuth: []
+      summary: Create samples
+      tags:
+      - samples
+  /samples/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete samples
+      parameters:
+      - description: id path
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SampleDeleteResponseDoc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      security:
+      - BearerAuth: []
+      summary: Delete samples
+      tags:
+      - samples
+    patch:
+      consumes:
+      - application/json
+      description: Update samples
+      parameters:
+      - description: id path
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.SampleUpdateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SampleUpdateResponseDoc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      security:
+      - BearerAuth: []
+      summary: Update samples
+      tags:
+      - samples
+  /samples/{id}/{child}/{child_id}:
+    get:
+      consumes:
+      - application/json
+      description: Get samples by id
+      parameters:
+      - description: id path
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.SampleGetByIDResponseDoc'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.errorResponse'
+      security:
+      - BearerAuth: []
+      summary: Get samples by id
+      tags:
+      - samples
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
